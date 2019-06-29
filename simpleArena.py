@@ -17,13 +17,13 @@ class unit(object):
 
 class opponent(unit):
     def __init__(self, lbl, vl):
-        unit.__init__(self, lbl, vl)
-        l=(0,1,2,3)
+        l=(1,2,3)
         self.level = random.choice(l)
+        unit.__init__(self, lbl, vl*self.level)
         return
     def damage(self):
         d=(5,6,7)
-        dmg=random.choice(d)
+        dmg=random.choice(d)*self.level
         sa_menu.show_Text('D:'+str(dmg),460,400)
         pygame.display.update()
         return dmg
@@ -48,13 +48,18 @@ class hero(unit):
         self.level_pos=(230,420)
         self.xp_pos=(230,440)
         self.txt_pos=(230,440)
+        self.live=True
         return
     def levelUp(self):
         self.level=int(self.xp/10)
         self.hp=int(self.level)*4+self.mxvalue
         return
     def damage(self):
-        return self.level+5
+        d=(5,6,7)
+        dmg=random.choice(d)*(self.level+1)
+        sa_menu.show_Text('D:'+str(dmg),260,400)
+        pygame.display.update()
+        return dmg
     def show(self):
         bgc=(105,175,205)
         sa_menu.show_Zone(bgc,380,150,250,150)
@@ -70,7 +75,8 @@ class hero(unit):
 
 def New():
     global h
-    h = hero('Hero',10)
+    global n
+    h = hero('Hero-'+str(n),26)
     return h
 
 def Load():
@@ -91,12 +97,14 @@ def Display():
     return r
 
 def Fight():
+    global h
     opponent_l=('gladiator','troglodyte','orc','barbarian')
     o=opponent(random.choice(opponent_l),8)
     roundr=1
     while o.hp>=0 and roundr<10:
         o.show()
         if (h.hp<=0):
+            h.live=False
             return 'Hero is dead'
         else:
             h.xp+=1
@@ -122,6 +130,8 @@ def main():
     sa_menu.set_Display(winDisplay, clock, Font)
     turn = 0
     i = (0,'?')
+    global n
+    n=0
     global h
     h=New()
     MENU= ['New','Load','Save','Display','Fight','Quit']
@@ -130,6 +140,9 @@ def main():
         h.show()
         i=sa_menu.menu_loop(MENU)
         CMD[i[0]]()
+        if(h.live==False):
+                n+=1
+                h=New()
         turn+=1
     pygame.quit()
     quit()
