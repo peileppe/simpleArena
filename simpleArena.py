@@ -155,16 +155,17 @@ def main():
         turn+=1
         sa_menu.show_Text('Turn'+str(turn),100,400)
         j=0
-        sa_menu.show_Zone(bgc,50,200,250,200 )# sa_menu.show_Zone(bgc,380,350,250,150)
+        #sa_menu.show_Zone(white,50,200,250,225 )# sa_menu.show_Zone(bgc,380,350,250,150)
+        pygame.display.update()
         for rx in listm:
-                sa_menu.show_Text(rx,y=200+(25*j),x=100)
+                sa_menu.show_Text(rx,y=200+(25*j),x=55)
                 j+=1
                 if j>8: 
                     j=0
-                    pygame.display.update()
+                    listm=[]
+                    sa_menu.show_Zone(white,50,200,250,225 )# sa_menu.show_Zone(bgc,380,350,250,150)
+                pygame.display.update()
     pygame.quit()
-    for i in (listm):
-        print(i)
     quit()
     return
 
