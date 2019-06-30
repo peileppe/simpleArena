@@ -76,7 +76,7 @@ class hero(unit):
 def New():
     global h
     global n
-    h = hero('Hero-'+str(n),26)
+    h = hero('Hero-'+str(n),30)
     return h
 
 def Load():
@@ -98,6 +98,8 @@ def Display():
 
 def Fight():
     global h
+    global dead
+    global listm
     opponent_l=('gladiator','troglodyte','orc','barbarian')
     o=opponent(random.choice(opponent_l),8)
     roundr=1
@@ -111,8 +113,10 @@ def Fight():
             o.hp-=h.damage()
             h.hp-=o.damage()
         roundr+=1
+    dead+=1
+    listm.append(o.name+' is dead')
     h.levelUp()
-    return o.name+' is dead'
+    return 
 
 def Quit():
     return('Bye')
@@ -134,6 +138,10 @@ def main():
     n=0
     global h
     h=New()
+    global dead
+    dead=0
+    global listm
+    listm=[]
     MENU= ['New','Load','Save','Display','Fight','Quit']
     CMD = [New,Load,Save,Display, Fight, Quit]
     while i[1] != ('Quit'):
@@ -144,7 +152,11 @@ def main():
                 n+=1
                 h=New()
         turn+=1
+        sa_menu.show_Text('Turn'+str(turn),100,400)
+        #pygame.display.update()
     pygame.quit()
+    for i in (listm):
+        print(i)
     quit()
     return
 
