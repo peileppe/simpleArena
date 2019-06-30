@@ -129,6 +129,7 @@ def main():
     pygame.display.set_caption('simple Arena')
     Font = pygame.font.Font(None, 26)
     white = (205,205,205)
+    bgc=(105,175,205)
     winDisplay.fill(white)
     clock = pygame.time.Clock()
     sa_menu.set_Display(winDisplay, clock, Font)
@@ -153,7 +154,14 @@ def main():
                 h=New()
         turn+=1
         sa_menu.show_Text('Turn'+str(turn),100,400)
-        #pygame.display.update()
+        j=0
+        sa_menu.show_Zone(bgc,50,200,250,200 )# sa_menu.show_Zone(bgc,380,350,250,150)
+        for rx in listm:
+                sa_menu.show_Text(rx,y=200+(25*j),x=100)
+                j+=1
+                if j>8: 
+                    j=0
+                    pygame.display.update()
     pygame.quit()
     for i in (listm):
         print(i)

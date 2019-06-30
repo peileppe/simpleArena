@@ -12,17 +12,6 @@ def set_Display( w,c,f ):
     Font=f
     return
 
-def show_Report(r):
-    green = (10,100,10)
-    y=5
-    for line in r:
-        y, x = show_Text(line, y, 200, white, len(line)*8)
-        if y > 640: 
-            y=5
-            press_anyKey('more...')
-    press_anyKey()
-    return
-
 def show_Zone(color, x, y, wh, hh):
     pygame.draw.rect(winDisplay, color, [x, y, wh, hh])
     return
